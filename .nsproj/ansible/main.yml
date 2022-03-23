@@ -1,0 +1,25 @@
+---
+
+- hosts: localhost
+  gather_facts: true
+
+  pre_tasks:
+   - setup:
+       filter: ansible_distribution
+
+  roles: []
+
+  vars:
+    base_user: ubuntu
+    project_name: jdrake
+
+  environment: {}
+
+  tasks:
+    - name: Add personal aliases
+      blockinfile:
+        path: "/home/{{ base_user }}/.bashrc"
+        block: |
+          alias gs="git status"
+          alias gam="git commit -am"
+        marker: "# {mark} ANSIBLE MANAGED BLOCK USER PERSONAL"
